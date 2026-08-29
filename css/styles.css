@@ -607,3 +607,59 @@ button { font-family: inherit; cursor: pointer; }
   font-size: 13px;
   font-weight: 600;
 }
+
+/* ---------- Contacto ---------- */
+.contacto { background: var(--ink); color: var(--paper); }
+.contacto .eyebrow { color: var(--lime); }
+.contacto .eyebrow::before { border-color: var(--paper); }
+.contacto .section-head h2 { color: var(--paper); }
+.contacto .section-head p { color: #C9D6CF; }
+
+.contacto-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.contact-form {
+  background: var(--paper-raised);
+  border-radius: var(--radius-card);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.contact-form input, .contact-form textarea {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--thread);
+  background: var(--paper);
+  color: var(--ink);
+  resize: vertical;
+}
+.contact-form input:focus, .contact-form textarea:focus {
+  border-color: var(--moss);
+  outline: none;
+}
+
+.contact-form button { align-self: flex-start; }
+
+.contact-confirm {
+  margin: 0;
+  color: var(--moss);
+  font-weight: 600;
+  font-size: 14px;
+}

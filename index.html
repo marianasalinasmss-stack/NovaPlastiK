@@ -87,7 +87,38 @@
     </div>
   </section>
 
+  <section class="section catalogo" id="catalogo">
+    <div class="container">
+      <div class="section-head" data-aos="fade-up">
+        <p class="eyebrow">Catálogo</p>
+        <h2>Bolsos y monederos disponibles</h2>
+        <p>Cada etiqueta indica el tipo de plástico recuperado y su peso equivalente en botellas.</p>
+      </div>
+      <div class="catalogo-grid" id="catalogoGrid">
+        <!-- Las tarjetas de producto se generan con JS desde js/store.js -->
+      </div>
+    </div>
+  </section>
+
 </main>
+
+<!-- Carrito lateral -->
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+  <div class="cart-drawer-head">
+    <h3>Tu bolsa</h3>
+    <button id="cartClose" aria-label="Cerrar carrito">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <p class="cart-empty" id="cartEmpty">Tu bolsa está vacía. Agrega un bolso o monedero del catálogo.</p>
+  </div>
+  <div class="cart-summary">
+    <div class="cart-row"><span>Subtotal</span><strong id="cartSubtotal">$0</strong></div>
+    <div class="cart-row"><span>Envío</span><strong>Gratis</strong></div>
+    <div class="cart-row cart-total"><span>Total</span><strong id="cartTotal">$0</strong></div>
+    <a href="#contacto" class="btn btn-primary cart-checkout" id="cartCheckout">Finalizar pedido</a>
+  </div>
+</aside>
+<div class="cart-backdrop" id="cartBackdrop"></div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="js/store.js"></script>

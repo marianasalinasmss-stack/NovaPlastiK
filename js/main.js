@@ -12,7 +12,16 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCart();
   wireCartUi();
   wireContactForm();
+  wireMobileNav();
 });
+
+function wireMobileNav() {
+  const burger = document.getElementById("navBurger");
+  const links = document.getElementById("navLinks");
+  if (!burger || !links) return;
+  burger.addEventListener("click", () => links.classList.toggle("open"));
+  links.querySelectorAll("a").forEach(a => a.addEventListener("click", () => links.classList.remove("open")));
+}
 
 /* ---------- Catálogo ---------- */
 function renderCatalogo() {

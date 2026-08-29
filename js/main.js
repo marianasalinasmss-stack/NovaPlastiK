@@ -162,13 +162,21 @@ function renderCart() {
 }
 
 function openCart() {
-  document.getElementById("cartDrawer").classList.add("open");
+  const drawer = document.getElementById("cartDrawer");
+  drawer.classList.add("open");
+  drawer.setAttribute("aria-hidden", "false");
   document.getElementById("cartBackdrop").classList.add("active");
 }
 function closeCart() {
-  document.getElementById("cartDrawer").classList.remove("open");
+  const drawer = document.getElementById("cartDrawer");
+  drawer.classList.remove("open");
+  drawer.setAttribute("aria-hidden", "true");
   document.getElementById("cartBackdrop").classList.remove("active");
 }
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeCart();
+});
 
 function wireCartUi() {
   document.getElementById("cartToggle")?.addEventListener("click", openCart);

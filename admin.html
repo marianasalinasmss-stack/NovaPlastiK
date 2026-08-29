@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel admin — NovaPlastiK</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+<header class="admin-topbar">
+  <a href="index.html" class="logo"><span class="logo-mark">♲</span> NovaPlastiK</a>
+  <button id="logoutBtn" class="btn btn-outline" hidden>Cerrar sesión</button>
+</header>
+
+<!-- Pantalla de login -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-card">
+    <h1>Panel admin</h1>
+    <p class="sub">Gestiona el catálogo y revisa los mensajes de contacto.</p>
+    <form id="loginForm">
+      <label>Usuario
+        <input type="text" id="loginUser" autocomplete="username" required>
+      </label>
+      <label>Contraseña
+        <input type="password" id="loginPass" autocomplete="current-password" required>
+      </label>
+      <p class="login-error" id="loginError" hidden>Usuario o contraseña incorrectos.</p>
+      <button type="submit" class="btn btn-primary">Entrar</button>
+    </form>
+    <p class="login-hint">Demo: usuario <strong>admin</strong> · contraseña <strong>novaplastik2026</strong></p>
+  </div>
+</div>
+
+<!-- Panel (oculto hasta iniciar sesión) -->
+<main class="admin-main container" id="adminMain" hidden>
+
+  <div class="admin-grid">
+    <div class="stat-card"><span>Productos activos</span><strong id="statProductos">0</strong></div>
+    <div class="stat-card"><span>Mensajes recibidos</span><strong id="statMensajes">0</strong></div>
+    <div class="stat-card"><span>Valor total catálogo</span><strong id="statValor">$0</strong></div>
+  </div>
+
+  <section class="admin-section">
+    <div class="admin-section-head">
+      <h2>Productos</h2>
+      <button id="newProductBtn" class="btn btn-dark">+ Nuevo producto</button>
+    </div>
+
+    <form id="productForm" class="product-form" hidden>
+      <input type="hidden" id="prodId">
+      <label>Nombre
+        <input type="text" id="prodNombre" required>
+      </label>
+      <label>Tipo
+        <select id="prodTipo">
+          <option value="bolso">Bolso</option>
+          <option value="monedero">Monedero</option>
+        </select>
+      </label>
+      <label>Código de material
+        <input type="text" id="prodCodigo" placeholder="♲ 02" required>
+      </label>
+      <label>Precio (COP)
+        <input type="number" id="prodPrecio" min="0" required>
+      </label>
+      <label class="full">Material
+        <input type="text" id="prodMaterial" placeholder="HDPE reciclado · equiv. 4 botellas" required>
+      </label>
+      <label class="full">Descripción
+        <textarea id="prodDescripcion" rows="2" required></textarea>
+      </label>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" id="cancelProductBtn" class="btn btn-outline">Cancelar</button>
+      </div>
+    </form>
+
+    <table class="admin-table">
+      <thead>
+        <tr><th>Código</th><th>Nombre</th><th>Tipo</th><th>Precio</th><th></th></tr>
+      </thead>
+      <tbody id="productosBody"></tbody>
+    </table>
+  </section>
+
+  <section class="admin-section">
+    <div class="admin-section-head">
+      <h2>Mensajes de contacto</h2>
+    </div>
+    <div id="mensajesList"></div>
+  </section>
+
+</main>
+
+<script src="js/store.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

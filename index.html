@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NovaPlastiK — Bolsos y monederos de plástico reciclado</title>
+<meta name="description" content="NovaPlastiK transforma botellas plásticas en bolsos y monederos. Compra en línea, sigue el impacto de tu compra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#inicio" class="logo">
+      <span class="logo-mark">♲</span> NovaPlastiK
+    </a>
+    <nav class="nav-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#mision">Misión</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="admin.html" class="admin-link">Admin</a>
+      <button class="cart-toggle" id="cartToggle" aria-label="Abrir carrito">
+        🛍️ <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="inicio">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">Lote N01 — plástico recuperado</p>
+        <h1>De botella<br>a bolso.</h1>
+        <p class="hero-sub">Diseñamos bolsos y monederos con plástico reciclado post-consumo,
+          hechos a mano en talleres locales. Cada pieza lleva su propia etiqueta de trazabilidad.</p>
+        <div class="hero-cta">
+          <a href="#catalogo" class="btn btn-primary">Ver catálogo</a>
+          <a href="#mision" class="btn btn-outline">Nuestra misión</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 320 340" class="hero-svg">
+          <rect x="40" y="90" width="220" height="200" rx="26" fill="#12312B"/>
+          <rect x="40" y="90" width="220" height="200" rx="26" fill="none" stroke="#C6E86B" stroke-width="3"/>
+          <path d="M95 90 V60 a45 45 0 0 1 90 0 V90" fill="none" stroke="#C6E86B" stroke-width="10" stroke-linecap="round"/>
+          <circle cx="150" cy="180" r="46" fill="#F2EEDD" opacity="0.08"/>
+          <text x="150" y="192" text-anchor="middle" font-family="IBM Plex Mono" font-size="15" fill="#C6E86B">♲ 02</text>
+          <text x="150" y="212" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#F2EEDD">HDPE RECICLADO</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="js/store.js"></script>
+<script src="js/chatbot.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -540,9 +540,13 @@ button { font-family: inherit; cursor: pointer; }
   border-radius: 18px;
   box-shadow: var(--shadow-card);
   z-index: 70;
-  display: flex;
+  display: none;
   flex-direction: column;
   overflow: hidden;
+}
+
+.chat-panel.open {
+  display: flex;
 }
 
 .chat-head {

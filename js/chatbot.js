@@ -31,7 +31,7 @@ function injectChatWidget() {
   const wrap = document.createElement("div");
   wrap.innerHTML = `
     <button id="chatFab" class="chat-fab" aria-label="Abrir asistente NovaPlastiK">💬</button>
-    <div id="chatPanel" class="chat-panel" hidden>
+    <div id="chatPanel" class="chat-panel">
       <div class="chat-head">
         <div>
           <strong>Asistente NovaPlastiK</strong>
@@ -57,13 +57,17 @@ function wireChat() {
   const input = document.getElementById("chatInput");
 
   fab.addEventListener("click", () => {
-    panel.hidden = !panel.hidden;
-    if (!panel.hidden && !panel.dataset.greeted) {
+    panel.classList.toggle("open");
+    if (panel.classList.contains("open") && !panel.dataset.greeted) {
       addChatMessage("bot", "¡Hola! 👋 Cuéntame qué buscas (por ejemplo: 'bolso para la playa' o 'monedero de regalo') y te recomiendo una pieza del catálogo.");
       panel.dataset.greeted = "1";
     }
   });
-  closeBtn.addEventListener("click", () => panel.hidden = true);
+  closeBtn.addEventListener("click", () => panel.classList.remove("open"));
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") panel.classList.remove("open");
+  });
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();

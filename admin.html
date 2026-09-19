@@ -4,18 +4,219 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Panel admin — NovaPlastiK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css">
-<link rel="stylesheet" href="css/admin.css">
+<style>
+:root {
+  /* Paleta tomada del logo NovaPlastiK */
+  --ink: #0B2E63;
+  --ink-soft: #2C4F85;
+  --paper: #EFF4F9;
+  --paper-raised: #FFFFFF;
+  --moss: #3A7D0C;
+  --lime: #90C000;
+  --lime-deep: #7BA600;
+  --blue: #0078D8;
+  --blue-deep: #0048C0;
+  --clay: #0068C0;
+  --thread: #D3E0EC;
+  --danger: #C62828;
+  --font-display: "Space Grotesk", "Arial Narrow", sans-serif;
+  --font-body: "Work Sans", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "Courier New", monospace;
+  --radius-card: 18px;
+  --container: 1180px;
+  --shadow-card: 0 10px 30px -12px rgba(11, 46, 99, 0.22);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3 { font-family: var(--font-display); margin: 0 0 .5em; line-height: 1.1; }
+p { margin: 0 0 1em; }
+button { font-family: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--clay); outline-offset: 2px; }
+
+.container { max-width: var(--container); margin: 0 auto; padding: 0 24px; width: 100%; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border-radius: 999px; padding: 12px 24px;
+  font-family: var(--font-display); font-weight: 600; font-size: 14.5px;
+  border: 2px solid var(--ink); text-decoration: none;
+  transition: transform .15s ease, background .2s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--lime); color: var(--ink); }
+.btn-primary:hover { background: var(--lime-deep); }
+.btn-outline { background: transparent; color: var(--ink); }
+.btn-outline:hover { background: var(--ink); color: var(--paper); }
+.btn-dark { background: var(--ink); color: var(--paper); }
+.btn-dark:hover { background: var(--moss); border-color: var(--moss); }
+
+.logo {
+  font-family: var(--font-display); font-weight: 700; font-size: 19px;
+  text-decoration: none; color: var(--ink);
+  display: flex; align-items: center; gap: 8px;
+}
+.logo-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--lime), var(--blue)); color: #FFFFFF; font-size: 16px;
+}
+
+.admin-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 28px; border-bottom: 1px solid var(--thread);
+  background: var(--paper-raised);
+}
+#logoutBtn { font-size: 13px; padding: 9px 18px; }
+
+/* ---------- Login ---------- */
+.login-wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+.login-card {
+  width: 100%; max-width: 380px;
+  background: var(--paper-raised); border: 1px solid var(--thread);
+  border-radius: var(--radius-card); padding: 36px 32px; box-shadow: var(--shadow-card);
+}
+.login-card h1 { font-size: 24px; margin-bottom: 4px; }
+.login-card .sub { color: var(--ink-soft); font-size: 14px; margin-bottom: 24px; }
+.login-card label { display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; font-weight: 600; margin-bottom: 16px; }
+.login-card input {
+  padding: 11px 13px; border-radius: 10px; border: 1.5px solid var(--thread);
+  background: var(--paper); font-size: 14.5px; font-family: inherit;
+}
+.login-card button { width: 100%; margin-top: 6px; }
+.login-hint {
+  margin-top: 18px; font-size: 12px; color: var(--moss); font-family: var(--font-mono);
+  background: var(--paper); border: 1px dashed var(--thread); border-radius: 10px; padding: 10px 12px;
+}
+.login-error { color: var(--danger); font-size: 13px; margin: 0 0 4px; }
+
+/* ---------- Dashboard ---------- */
+.admin-main { flex: 1; padding: 34px 0 60px; }
+
+.admin-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 36px; }
+.stat-card {
+  background: var(--paper-raised); border: 1px solid var(--thread);
+  border-radius: var(--radius-card); padding: 22px;
+}
+.stat-card span { font-family: var(--font-mono); font-size: 12px; color: var(--moss); }
+.stat-card strong { display: block; font-family: var(--font-display); font-size: 32px; margin-top: 6px; }
+
+.admin-section {
+  background: var(--paper-raised); border: 1px solid var(--thread);
+  border-radius: var(--radius-card); padding: 26px 28px; margin-bottom: 26px;
+}
+.admin-section-head {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 18px; flex-wrap: wrap; gap: 12px;
+}
+.admin-section-head h2 { font-size: 19px; margin: 0; }
+
+.admin-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.admin-table th {
+  text-align: left; font-family: var(--font-mono); font-size: 11.5px;
+  text-transform: uppercase; color: var(--moss);
+  border-bottom: 1px solid var(--thread); padding: 8px 10px;
+}
+.admin-table td { padding: 10px; border-bottom: 1px solid var(--thread); vertical-align: middle; }
+.admin-table tr:last-child td { border-bottom: none; }
+
+.tabla-thumb {
+  width: 48px; height: 48px; border-radius: 8px; object-fit: cover;
+  background: var(--paper); display: block;
+}
+.tabla-thumb-vacio {
+  width: 48px; height: 48px; border-radius: 8px; background: var(--paper);
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
+  border: 1px dashed var(--thread);
+}
+
+.admin-empty { color: var(--ink-soft); font-size: 13.5px; padding: 10px 0; }
+
+.mini-btn {
+  border: 1px solid var(--thread); background: var(--paper);
+  border-radius: 8px; padding: 5px 10px; font-size: 12px; margin-right: 6px;
+}
+.mini-btn.danger { color: var(--danger); border-color: var(--danger); }
+
+/* ---------- Formulario producto ---------- */
+.product-form {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+  margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px dashed var(--thread);
+}
+.product-form label { display: flex; flex-direction: column; gap: 5px; font-size: 12.5px; font-weight: 600; }
+.product-form input, .product-form select, .product-form textarea {
+  padding: 9px 11px; border-radius: 8px; border: 1.5px solid var(--thread);
+  background: var(--paper); font-size: 13.5px; font-family: inherit;
+}
+.product-form .full { grid-column: 1 / -1; }
+.product-form .form-actions { grid-column: 1 / -1; display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* ---------- Zona de foto ---------- */
+.foto-zona {
+  grid-column: 1 / -1;
+  display: grid; grid-template-columns: 132px 1fr; gap: 16px; align-items: center;
+  background: var(--paper); border: 1.5px dashed var(--thread);
+  border-radius: 12px; padding: 14px;
+}
+.foto-preview {
+  width: 132px; height: 132px; border-radius: 10px; object-fit: cover;
+  background: var(--paper-raised); border: 1px solid var(--thread); display: block;
+}
+.foto-preview-vacio {
+  width: 132px; height: 132px; border-radius: 10px;
+  background: var(--paper-raised); border: 1px solid var(--thread);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 6px; color: var(--moss); font-size: 11.5px; text-align: center; padding: 8px;
+}
+.foto-preview-vacio span { font-size: 26px; }
+.foto-acciones { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.foto-acciones p { margin: 0; font-size: 12px; color: var(--ink-soft); }
+.foto-btn {
+  background: var(--ink); color: var(--paper); border: none;
+  border-radius: 999px; padding: 9px 18px; font-size: 13px; font-weight: 600;
+  font-family: var(--font-display);
+}
+.foto-btn:hover { background: var(--moss); }
+.foto-quitar {
+  background: none; border: none; color: var(--danger);
+  font-size: 12px; text-decoration: underline; padding: 0;
+}
+#prodFoto { display: none; }
+.foto-aviso { font-size: 12px; color: var(--danger); margin: 0; }
+
+@media (max-width: 720px) {
+  .admin-topbar { padding: 14px 16px; }
+  .container { padding: 0 16px; }
+  .admin-grid { grid-template-columns: 1fr; }
+  .product-form { grid-template-columns: 1fr; }
+  .foto-zona { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .foto-acciones { align-items: center; }
+  .tabla-wrap { overflow-x: auto; }
+  .admin-table { min-width: 560px; }
+}
+</style>
 </head>
-<body class="admin-body">
+<body>
 
 <header class="admin-topbar">
   <a href="index.html" class="logo"><span class="logo-mark">♲</span> NovaPlastiK</a>
   <button id="logoutBtn" class="btn btn-outline" hidden>Cerrar sesión</button>
 </header>
 
-<!-- Pantalla de login -->
+<!-- Login -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-card">
     <h1>Panel admin</h1>
@@ -34,7 +235,7 @@
   </div>
 </div>
 
-<!-- Panel (oculto hasta iniciar sesión) -->
+<!-- Dashboard -->
 <main class="admin-main container" id="adminMain" hidden>
 
   <div class="admin-grid">
@@ -51,6 +252,24 @@
 
     <form id="productForm" class="product-form" hidden>
       <input type="hidden" id="prodId">
+
+      <!-- Zona de foto -->
+      <div class="foto-zona">
+        <div id="fotoPreviewWrap">
+          <div class="foto-preview-vacio" id="fotoVacio">
+            <span>📷</span>
+            Sin foto
+          </div>
+        </div>
+        <div class="foto-acciones">
+          <input type="file" id="prodFoto" accept="image/*">
+          <button type="button" class="foto-btn" id="fotoBtn">Subir foto del bolso</button>
+          <button type="button" class="foto-quitar" id="fotoQuitar" hidden>Quitar foto</button>
+          <p>JPG o PNG. La imagen se ajusta automáticamente a 700px para que no ocupe demasiado.</p>
+          <p class="foto-aviso" id="fotoAviso" hidden></p>
+        </div>
+      </div>
+
       <label>Nombre
         <input type="text" id="prodNombre" required>
       </label>
@@ -73,29 +292,383 @@
         <textarea id="prodDescripcion" rows="2" required></textarea>
       </label>
       <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-primary">Guardar producto</button>
         <button type="button" id="cancelProductBtn" class="btn btn-outline">Cancelar</button>
       </div>
     </form>
 
-    <table class="admin-table">
-      <thead>
-        <tr><th>Código</th><th>Nombre</th><th>Tipo</th><th>Precio</th><th></th></tr>
-      </thead>
-      <tbody id="productosBody"></tbody>
-    </table>
+    <div class="tabla-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr><th>Foto</th><th>Código</th><th>Nombre</th><th>Tipo</th><th>Precio</th><th></th></tr>
+        </thead>
+        <tbody id="productosBody"></tbody>
+      </table>
+    </div>
   </section>
 
   <section class="admin-section">
-    <div class="admin-section-head">
-      <h2>Mensajes de contacto</h2>
-    </div>
+    <div class="admin-section-head"><h2>Mensajes de contacto</h2></div>
     <div id="mensajesList"></div>
   </section>
 
 </main>
 
-<script src="js/store.js"></script>
-<script src="js/admin.js"></script>
+<script>
+/* =========================================================
+   Capa de datos (misma que usa la tienda)
+   ========================================================= */
+const NOVA_KEYS = {
+  products: "novaplastik_products",
+  messages: "novaplastik_messages",
+  session: "novaplastik_admin_session",
+};
+
+const NOVA_SEED_PRODUCTS = [
+  { id:"np-001", codigo:"♲ 02", nombre:"Bolso Tótem", tipo:"bolso",
+    material:"HDPE reciclado · equiv. 6 botellas",
+    descripcion:"Bolso de mano grande, correa cruzada ajustable, forro interior impermeable.",
+    precio:128000, icono:"👜", imagen:null },
+  { id:"np-002", codigo:"♲ 01", nombre:"Monedero Ola", tipo:"monedero",
+    material:"PET reciclado · equiv. 2 botellas",
+    descripcion:"Monedero compacto con cierre magnético y compartimento para tarjetas.",
+    precio:42000, icono:"👛", imagen:null },
+  { id:"np-003", codigo:"♲ 05", nombre:"Bolso Costa", tipo:"bolso",
+    material:"HDPE + algodón reciclado · equiv. 5 botellas",
+    descripcion:"Tote de playa resistente al agua, base reforzada, ideal para el día a día.",
+    precio:96000, icono:"🛍️", imagen:null },
+  { id:"np-004", codigo:"♲ 01", nombre:"Monedero Arrecife", tipo:"monedero",
+    material:"PET reciclado · equiv. 3 botellas",
+    descripcion:"Monedero mediano con dos compartimentos y llavero desmontable.",
+    precio:54000, icono:"💰", imagen:null },
+  { id:"np-005", codigo:"♲ 04", nombre:"Bolso Manglar", tipo:"bolso",
+    material:"HDPE reciclado · equiv. 8 botellas",
+    descripcion:"Bolso tipo backpack, dos bolsillos frontales, tirantes acolchados.",
+    precio:142000, icono:"🎒", imagen:null },
+  { id:"np-006", codigo:"♲ 03", nombre:"Monedero Marea", tipo:"monedero",
+    material:"PET + PP reciclado · equiv. 3 botellas",
+    descripcion:"Monedero alargado tipo sobre, ideal para regalo, cordón removible.",
+    precio:48000, icono:"👝", imagen:null },
+];
+
+function novaGetProducts() {
+  const raw = localStorage.getItem(NOVA_KEYS.products);
+  if (!raw) {
+    localStorage.setItem(NOVA_KEYS.products, JSON.stringify(NOVA_SEED_PRODUCTS));
+    return [...NOVA_SEED_PRODUCTS];
+  }
+  try { return JSON.parse(raw); } catch (e) { return [...NOVA_SEED_PRODUCTS]; }
+}
+
+function novaSaveProducts(products) {
+  try {
+    localStorage.setItem(NOVA_KEYS.products, JSON.stringify(products));
+    return true;
+  } catch (e) {
+    // Se llenó el almacenamiento del navegador (suele pasar con muchas fotos)
+    alert("No se pudo guardar: el almacenamiento del navegador está lleno. " +
+          "Elimina algún producto con foto o usa imágenes más livianas.");
+    return false;
+  }
+}
+
+function novaGetMessages() {
+  const raw = localStorage.getItem(NOVA_KEYS.messages);
+  try { return raw ? JSON.parse(raw) : []; } catch (e) { return []; }
+}
+
+function novaFormatPrice(value) {
+  return "$" + Number(value).toLocaleString("es-CO");
+}
+
+/* =========================================================
+   Login
+   ========================================================= */
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "novaplastik2026";
+
+document.addEventListener("DOMContentLoaded", () => {
+  wireLogin();
+  if (sessionStorage.getItem(NOVA_KEYS.session) === "true") showDashboard();
+});
+
+function wireLogin() {
+  document.getElementById("loginForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const user = document.getElementById("loginUser").value.trim();
+    const pass = document.getElementById("loginPass").value;
+    const error = document.getElementById("loginError");
+    if (user === ADMIN_USER && pass === ADMIN_PASS) {
+      sessionStorage.setItem(NOVA_KEYS.session, "true");
+      error.hidden = true;
+      showDashboard();
+    } else {
+      error.hidden = false;
+    }
+  });
+
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    sessionStorage.removeItem(NOVA_KEYS.session);
+    location.reload();
+  });
+}
+
+function showDashboard() {
+  document.getElementById("loginWrap").hidden = true;
+  document.getElementById("adminMain").hidden = false;
+  document.getElementById("logoutBtn").hidden = false;
+  renderStats();
+  renderProductTable();
+  renderMessages();
+  wireProductForm();
+  wireFotoUploader();
+}
+
+/* =========================================================
+   Estadísticas
+   ========================================================= */
+function renderStats() {
+  const productos = novaGetProducts();
+  document.getElementById("statProductos").textContent = productos.length;
+  document.getElementById("statMensajes").textContent = novaGetMessages().length;
+  document.getElementById("statValor").textContent =
+    novaFormatPrice(productos.reduce((s, p) => s + p.precio, 0));
+}
+
+/* =========================================================
+   Foto del producto
+   ========================================================= */
+let fotoActual = null; // data URL de la imagen en edición
+
+function wireFotoUploader() {
+  const input = document.getElementById("prodFoto");
+  const btn = document.getElementById("fotoBtn");
+  const quitar = document.getElementById("fotoQuitar");
+
+  btn.addEventListener("click", () => input.click());
+
+  input.addEventListener("change", () => {
+    const file = input.files[0];
+    if (!file) return;
+    const aviso = document.getElementById("fotoAviso");
+
+    if (!file.type.startsWith("image/")) {
+      aviso.textContent = "Ese archivo no es una imagen.";
+      aviso.hidden = false;
+      return;
+    }
+    aviso.hidden = true;
+    btn.textContent = "Procesando...";
+
+    redimensionarImagen(file, 700, 0.78)
+      .then(dataUrl => {
+        fotoActual = dataUrl;
+        pintarPreview();
+        btn.textContent = "Cambiar foto";
+      })
+      .catch(() => {
+        aviso.textContent = "No se pudo leer la imagen. Intenta con otra.";
+        aviso.hidden = false;
+        btn.textContent = "Subir foto del bolso";
+      });
+  });
+
+  quitar.addEventListener("click", () => {
+    fotoActual = null;
+    input.value = "";
+    pintarPreview();
+    btn.textContent = "Subir foto del bolso";
+  });
+}
+
+// Reduce la imagen con canvas antes de guardarla, para que no sature el navegador
+function redimensionarImagen(file, maxLado, calidad) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > height && width > maxLado) {
+          height = Math.round(height * maxLado / width);
+          width = maxLado;
+        } else if (height > maxLado) {
+          width = Math.round(width * maxLado / height);
+          height = maxLado;
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, width, height);
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL("image/jpeg", calidad));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function pintarPreview() {
+  const wrap = document.getElementById("fotoPreviewWrap");
+  const quitar = document.getElementById("fotoQuitar");
+  if (fotoActual) {
+    wrap.innerHTML = `<img class="foto-preview" src="${fotoActual}" alt="Vista previa">`;
+    quitar.hidden = false;
+  } else {
+    wrap.innerHTML = `<div class="foto-preview-vacio"><span>📷</span>Sin foto</div>`;
+    quitar.hidden = true;
+  }
+}
+
+/* =========================================================
+   Productos
+   ========================================================= */
+function renderProductTable() {
+  const tbody = document.getElementById("productosBody");
+  const productos = novaGetProducts();
+
+  if (!productos.length) {
+    tbody.innerHTML = `<tr><td colspan="6" class="admin-empty">No hay productos todavía.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = productos.map(p => `
+    <tr>
+      <td>${p.imagen
+            ? `<img class="tabla-thumb" src="${p.imagen}" alt="${p.nombre}">`
+            : `<div class="tabla-thumb-vacio">${p.icono || "📷"}</div>`}</td>
+      <td>${p.codigo}</td>
+      <td>${p.nombre}</td>
+      <td>${p.tipo}</td>
+      <td>${novaFormatPrice(p.precio)}</td>
+      <td>
+        <button class="mini-btn" data-act="edit" data-id="${p.id}">Editar</button>
+        <button class="mini-btn danger" data-act="delete" data-id="${p.id}">Eliminar</button>
+      </td>
+    </tr>
+  `).join("");
+
+  tbody.querySelectorAll("[data-act]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const { act, id } = btn.dataset;
+      if (act === "edit") editProduct(id);
+      if (act === "delete") deleteProduct(id);
+    });
+  });
+}
+
+function wireProductForm() {
+  const form = document.getElementById("productForm");
+  const newBtn = document.getElementById("newProductBtn");
+  const cancelBtn = document.getElementById("cancelProductBtn");
+
+  newBtn.addEventListener("click", () => {
+    form.reset();
+    document.getElementById("prodId").value = "";
+    fotoActual = null;
+    pintarPreview();
+    document.getElementById("fotoBtn").textContent = "Subir foto del bolso";
+    form.hidden = false;
+    form.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+
+  cancelBtn.addEventListener("click", () => { form.hidden = true; });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const id = document.getElementById("prodId").value;
+    const productos = novaGetProducts();
+    const tipo = document.getElementById("prodTipo").value;
+
+    const data = {
+      nombre: document.getElementById("prodNombre").value.trim(),
+      tipo: tipo,
+      codigo: document.getElementById("prodCodigo").value.trim(),
+      precio: Number(document.getElementById("prodPrecio").value),
+      material: document.getElementById("prodMaterial").value.trim(),
+      descripcion: document.getElementById("prodDescripcion").value.trim(),
+      icono: tipo === "bolso" ? "👜" : "👛",
+      imagen: fotoActual,
+    };
+
+    if (id) {
+      const idx = productos.findIndex(p => p.id === id);
+      if (idx > -1) productos[idx] = { ...productos[idx], ...data };
+    } else {
+      productos.push({ id: "np-" + Date.now(), ...data });
+    }
+
+    if (!novaSaveProducts(productos)) return;
+
+    form.hidden = true;
+    fotoActual = null;
+    renderStats();
+    renderProductTable();
+  });
+}
+
+function editProduct(id) {
+  const p = novaGetProducts().find(p => p.id === id);
+  if (!p) return;
+  document.getElementById("prodId").value = p.id;
+  document.getElementById("prodNombre").value = p.nombre;
+  document.getElementById("prodTipo").value = p.tipo;
+  document.getElementById("prodCodigo").value = p.codigo;
+  document.getElementById("prodPrecio").value = p.precio;
+  document.getElementById("prodMaterial").value = p.material;
+  document.getElementById("prodDescripcion").value = p.descripcion;
+
+  fotoActual = p.imagen || null;
+  pintarPreview();
+  document.getElementById("fotoBtn").textContent = fotoActual ? "Cambiar foto" : "Subir foto del bolso";
+
+  const form = document.getElementById("productForm");
+  form.hidden = false;
+  form.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function deleteProduct(id) {
+  if (!confirm("¿Eliminar este producto del catálogo?")) return;
+  novaSaveProducts(novaGetProducts().filter(p => p.id !== id));
+  renderStats();
+  renderProductTable();
+}
+
+/* =========================================================
+   Mensajes
+   ========================================================= */
+function renderMessages() {
+  const wrap = document.getElementById("mensajesList");
+  const mensajes = novaGetMessages();
+
+  if (!mensajes.length) {
+    wrap.innerHTML = `<p class="admin-empty">Todavía no han llegado mensajes.</p>`;
+    return;
+  }
+
+  wrap.innerHTML = `
+    <div class="tabla-wrap">
+      <table class="admin-table">
+        <thead><tr><th>Fecha</th><th>Nombre</th><th>Correo</th><th>Mensaje</th></tr></thead>
+        <tbody>
+          ${mensajes.map(m => `
+            <tr>
+              <td>${new Date(m.fecha).toLocaleString("es-CO")}</td>
+              <td>${m.nombre}</td>
+              <td>${m.email}</td>
+              <td style="white-space:pre-wrap">${m.mensaje}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+</script>
 </body>
 </html>
